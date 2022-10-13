@@ -10,7 +10,6 @@ from adventurelib import *
 # help
 # quit
 
-current_room = 'cafeteria'
 
 
 # The @when decorator is written on the line above a function. The function will then be called when a player types a matching command.
@@ -53,12 +52,6 @@ def take(thing):
 @when("give ITEM to RECIPIENT")
 def give(item, recipient):
   print(f"You give the {item} to the {recipient}.")
-
-
-@when('look')
-def look():
-  global current_room
-  print(current_room)
 
 
 # try cast fireball
