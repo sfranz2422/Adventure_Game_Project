@@ -14,22 +14,6 @@ It is a pleasant November day. A little cool but sunny.
 
 """)
 
-
-########################################
-# OPENING TEXT
-print("""
-
-You get out of bed at 6:00am.  You need to get ready for school.
-
-Enter rooms of the house to visit such as "kitchen", "family room" etc or type "leave house" to go to school.
-
-You can view your inventory by typing 'bag'.
-
-You can view your current surroundings by typing 'look around'
-
-
-""")
-
 #####################################
 
 # DECLARE YOUR CURRENT ROOM AND CONSTANTS
@@ -37,7 +21,54 @@ current_room = house
 inventory = []
 
 ########################################
+########################################
+# OPENING TEXT
+def opening_text():
+  global current_room
+  current_room = house
+  print("""
+  
+  You get out of bed at 6:00am.  You need to get ready for school.
+  
+  Enter rooms of the house to visit such as "kitchen", "family room" etc or type "leave house" to go to school.
+  
+  You can view your inventory by typing 'bag'.
+  
+  You can view your current surroundings by typing 'look around'
+  
+  
+  """)
 
+opening_text()
+
+
+@when('kitchen')
+def kitchen_room():
+  global current_room
+  if current_room == house:
+      
+    say("""
+    You are in the kitchen.  It looks like most kitchens.  There is a stove, a microwave, and a table with a toolset.
+
+    You can 'leave house' or
+    You can view your inventory by typing 'bag'.
+  
+  You can view your current surroundings by typing 'look around'
+    """)
+  else:
+    say("There is no kitchen here. ")
+
+@when('open toolset')
+def open_tools():
+  if 'toolset' in inventory:
+    say("""
+  
+    You open the tool set, there is a screwdriver, pliers, a hammer and some nails.
+
+    
+    """)
+  else:
+    say("You don't have a toolset")
 
 @when('look around')
 def where():
@@ -80,7 +111,11 @@ def call_police():
 
 @when("approach the person")
 def approach_person():
-  print("You approach the person sitting in front of you house.  The person is looking at a comic book.")
+  global current_room
+  if current_room == outside:
+    print("You approach the person sitting in front of you house.  The person is looking at a comic book.")
+  else:
+    say("There is no person here.")
 
 
   
